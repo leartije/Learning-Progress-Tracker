@@ -44,7 +44,7 @@ public class StudentCredentialsChecker {
     }
 
     public boolean isValidSurname(String surname) {
-        return SURNAME_REGEX.matcher(surname).matches();
+        return SURNAME_REGEX.matcher(surname).matches() && surname.length() != 1;
     }
 
     public boolean isValidEmail(String email) {

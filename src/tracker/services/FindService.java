@@ -19,7 +19,7 @@ public class FindService {
         System.out.println(Msg.FIND_MENU);
         while (true) {
             String input = Util.SCANNER.nextLine();
-            if ("back".equals(input)) {
+            if (Msg.BACK.equals(input)) {
                 return;
             }
 
@@ -34,7 +34,6 @@ public class FindService {
             System.out.printf(Msg.POINTS, id, searchedStudent.getJavaPoints(),
                     searchedStudent.getDsaPoints(), searchedStudent.getDatabasePoints(),
                     searchedStudent.getSpringPoints());
-
         }
     }
 

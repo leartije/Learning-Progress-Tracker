@@ -12,6 +12,11 @@ public interface StudentService {
 
     void find();
 
+    void statistics();
+
+    void notification();
+
     void listaDemo();
+
 
 }

@@ -24,6 +24,26 @@ public class Msg {
     public static final String EXIT_NOT_BACK = "Enter 'exit' to exit the program.";
     public static final String UNKNOWN_COMMAND = "Error: unknown command!";
 
+    public static final String STATISTICS_MENU = "Type the name of a course to see details or 'back' to quit:";
+    public static final String STATISTICS = "Most popular: %s%n" +
+            "Least popular: %s%n" +
+            "Highest activity: %s%n" +
+            "Lowest activity: %s%n" +
+            "Easiest course: %s%n" +
+            "Hardest course: %s%n";
 
+    public static final String JAVA = "Java";
+    public static final String DSA = "DSA";
+    public static final String DATABASE = "Databases";
+    public static final String SPRING = "Spring";
+    public static final String UNKNOWN_COURSE = "Unknown course";
+    public static final String NO_INPUT = "No input.";
+
+    public static final String NOTIFY = "To: %s%n" +
+            "Re: Your Learning Progress%n" +
+            "Hello, %s! You have accomplished our %s course!%n";
+
+    public static final String TOTAL_STUDENTS_HAVE_BEEN_NOTIFIED = "Total %d students have been notified.%n";
+    public static final String BACK = "back";
 
 }

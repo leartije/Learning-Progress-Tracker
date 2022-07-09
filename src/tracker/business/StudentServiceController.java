@@ -1,11 +1,13 @@
 package tracker.business;
 
+import tracker.entity.Courses;
 import tracker.services.StudentService;
 import tracker.services.StudentServiceImpl;
 import tracker.util.Commands;
 import tracker.util.Msg;
 import tracker.util.Util;
 
+import java.util.List;
 import java.util.Locale;
 
 public class StudentServiceController {
@@ -20,8 +22,14 @@ public class StudentServiceController {
         System.out.println(Msg.WELCOME_MSG);
         while (true) {
             String input = Util.SCANNER.nextLine()
+                    .strip()
                     .replaceAll("\\s", "_")
                     .toUpperCase(Locale.ROOT);
+
+            if (input.isEmpty() || input.isBlank()) {
+                System.out.println(Msg.NO_INPUT);
+                continue;
+            }
 
             switch (getCommand(input)) {
                 case ADD_STUDENTS:
@@ -36,14 +44,22 @@ public class StudentServiceController {
                 case LIST:
                     studentService.list();
                     break;
+                case STATISTICS:
+                    studentService.statistics();
+                    break;
+                case NOTIFY:
+                    studentService.notification();
+                    break;
                 case BACK:
                     System.out.println(Msg.EXIT_NOT_BACK);
                     break;
                 case EXIT:
+                    System.out.println(Msg.BYE);
                     System.exit(0);
                     break;
                 case LISTA:
-                    studentService.listaDemo();
+                    List<Courses> all = Util.getAll();
+                    System.out.println(all);
                     break;
                 case UNKNOWN:
                     System.out.println(Msg.UNKNOWN_COMMAND);

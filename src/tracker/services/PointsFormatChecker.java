@@ -17,7 +17,7 @@ public class PointsFormatChecker {
     }
 
     public boolean isPointsFormatCorrect(String[] points) {
-        if (points.length == 0) {
+        if (points.length != 5) {
             return false;
         }
 

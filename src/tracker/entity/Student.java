@@ -8,9 +8,21 @@ public class Student {
     private String email;
 
     private int javaPoints;
+    private int javaSubmissions;
+    private boolean isJavaCourseCompleted;
     private int dsaPoints;
+    private int dsaSubmissions;
+    private boolean isDSACourseCompleted;
     private int databasePoints;
+    private int databaseSubmissions;
+    private boolean isDatabaseCourseComplete;
     private int springPoints;
+    private int springSubmissions;
+    private boolean isSpringCourseComplete;
+
+    private boolean isNotify = false;
+
+
 
     public Student() {
     }
@@ -70,6 +82,62 @@ public class Student {
         this.springPoints += springPoints;
     }
 
+    public void setJavaSubmissions(int javaSubmissions) {
+        this.javaSubmissions += javaSubmissions;
+    }
+
+    public void setDsaSubmissions(int dsaSubmissions) {
+        this.dsaSubmissions += dsaSubmissions;
+    }
+
+    public void setDatabaseSubmissions(int databaseSubmissions) {
+        this.databaseSubmissions += databaseSubmissions;
+    }
+
+    public void setSpringSubmissions(int springSubmissions) {
+        this.springSubmissions += springSubmissions;
+    }
+
+    public boolean isJavaCourseCompleted() {
+        return isJavaCourseCompleted;
+    }
+
+    public void setJavaCourseCompleted(boolean javaCourseCompleted) {
+        isJavaCourseCompleted = javaCourseCompleted;
+    }
+
+    public boolean isDSACourseCompleted() {
+        return isDSACourseCompleted;
+    }
+
+    public void setDSACourseCompleted(boolean DSACourseCompleted) {
+        isDSACourseCompleted = DSACourseCompleted;
+    }
+
+    public boolean isDatabaseCourseComplete() {
+        return isDatabaseCourseComplete;
+    }
+
+    public void setDatabaseCourseComplete(boolean databaseCourseComplete) {
+        isDatabaseCourseComplete = databaseCourseComplete;
+    }
+
+    public boolean isSpringCourseComplete() {
+        return isSpringCourseComplete;
+    }
+
+    public void setSpringCourseComplete(boolean springCourseComplete) {
+        isSpringCourseComplete = springCourseComplete;
+    }
+
+    public boolean isNotify() {
+        return isNotify;
+    }
+
+    public void setNotify(boolean notify) {
+        isNotify = notify;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -78,9 +146,13 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", javaPoints=" + javaPoints +
+                ", javaSubmissions=" + javaSubmissions +
                 ", dsaPoints=" + dsaPoints +
+                ", dsaSubmissions=" + dsaSubmissions +
                 ", databasePoints=" + databasePoints +
+                ", databaseSubmissions=" + databaseSubmissions +
                 ", springPoints=" + springPoints +
+                ", springSubmissions=" + springSubmissions +
                 '}';
     }
 }

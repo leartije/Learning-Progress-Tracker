@@ -21,7 +21,7 @@ public class AddStudentService {
         int count = 0;
         while (true) {
             String input = Util.SCANNER.nextLine();
-            if ("back".equalsIgnoreCase(input)) {
+            if (BACK.equalsIgnoreCase(input)) {
                 System.out.printf(NUM_OF_STUDENTS_IN_DB, count);
                 return;
             }

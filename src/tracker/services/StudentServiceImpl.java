@@ -10,12 +10,17 @@ public class StudentServiceImpl implements StudentService {
     private final AddPointsService addPointsService;
     private final AddStudentService addStudentService;
     private final FindService findService;
+    private final StatisticService statisticService;
+
+    private final NotifyService notifyService;
 
     public StudentServiceImpl() {
         this.dataBase = new DataBase();
         this.addPointsService = new AddPointsService(dataBase);
         this.addStudentService = new AddStudentService(dataBase);
         this.findService = new FindService(dataBase);
+        this.statisticService = new StatisticService(dataBase);
+        this.notifyService = new NotifyService(dataBase);
     }
 
     @Override
@@ -34,8 +39,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void listaDemo() {
-        dataBase.getStudents().forEach(System.out::println);
+    public void statistics() {
+        statisticService.statistics();
     }
 
     @Override
@@ -51,6 +56,16 @@ public class StudentServiceImpl implements StudentService {
         }
         System.out.println(STUDENTS);
         dataBase.getStudents().forEach(student -> System.out.println(student.getId()));
+    }
+
+    @Override
+    public void notification() {
+        notifyService.notification();
+    }
+
+    @Override
+    public void listaDemo() {
+        dataBase.getStudents().forEach(System.out::println);
     }
 
 }
