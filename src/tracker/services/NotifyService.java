@@ -2,7 +2,8 @@ package tracker.services;
 
 import tracker.entity.Student;
 import tracker.repository.DataBase;
-import tracker.util.Msg;
+
+import static tracker.util.Msg.*;
 
 public class NotifyService {
 
@@ -14,35 +15,38 @@ public class NotifyService {
 
     public void notification() {
 
-        int count = 0;
+        int numStudentsToNotify = 0;
 
         for (int i = 0; i < dataBase.getStudents().size(); i++) {
             boolean atLeastOne = false;
+
             Student current = dataBase.getStudents().get(i);
+            String fullName = current.getName() + " " + current.getLastName();
+
             if (current.isJavaCourseCompleted() && !current.isNotify()) {
-                System.out.printf(Msg.NOTIFY, current.getEmail(), (current.getName() + " " + current.getLastName()), "Java");
+                System.out.printf(NOTIFY, current.getEmail(), fullName, JAVA);
                 atLeastOne = true;
             }
             if (current.isDSACourseCompleted() && !current.isNotify()) {
-                System.out.printf(Msg.NOTIFY, current.getEmail(), (current.getName() + " " + current.getLastName()), "DSA");
+                System.out.printf(NOTIFY, current.getEmail(), fullName, DSA);
                 atLeastOne = true;
             }
             if (current.isDatabaseCourseComplete() && !current.isNotify()) {
-                System.out.printf(Msg.NOTIFY, current.getEmail(), (current.getName() + " " + current.getLastName()), "Database");
+                System.out.printf(NOTIFY, current.getEmail(), fullName, DATABASE);
                 atLeastOne = true;
             }
             if (current.isSpringCourseComplete() && !current.isNotify()) {
-                System.out.printf(Msg.NOTIFY, current.getEmail(), (current.getName() + " " + current.getLastName()), "Spring");
+                System.out.printf(NOTIFY, current.getEmail(), fullName, SPRING);
                 atLeastOne = true;
             }
 
             if (atLeastOne) {
                 current.setNotify(true);
-                count++;
+                numStudentsToNotify++;
             }
         }
 
-        System.out.printf(Msg.TOTAL_STUDENTS_HAVE_BEEN_NOTIFIED, count);
+        System.out.printf(TOTAL_STUDENTS_HAVE_BEEN_NOTIFIED, numStudentsToNotify);
     }
 
 }

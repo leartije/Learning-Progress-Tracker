@@ -4,13 +4,12 @@ import tracker.entity.Courses;
 import tracker.entity.Student;
 import tracker.repository.DataBase;
 import tracker.util.CoursesComm;
-import tracker.util.Msg;
 
 import java.util.Comparator;
 import java.util.Optional;
 
+import static tracker.util.Msg.*;
 import static tracker.util.Util.*;
-import static tracker.util.Util.getAll;
 
 public class StatisticService {
 
@@ -21,11 +20,11 @@ public class StatisticService {
     }
 
     public void statistics() {
-        System.out.println(Msg.STATISTICS_MENU);
+        System.out.println(STATISTICS_MENU);
         generalStatistics();
         while (true) {
             String input = SCANNER.nextLine();
-            if (Msg.BACK.equals(input)) {
+            if (BACK.equals(input)) {
                 return;
             }
 
@@ -43,7 +42,7 @@ public class StatisticService {
                     getSpringPointsForStudents();
                     break;
                 case UNKNOWN:
-                    System.out.println(Msg.UNKNOWN_COURSE);
+                    System.out.println(UNKNOWN_COURSE);
                     break;
             }
 
@@ -51,57 +50,56 @@ public class StatisticService {
     }
 
     private void getJavaPointsForStudents() {
-        System.out.println(Msg.JAVA);
-        System.out.println("id     points    completed");
+        System.out.println(JAVA);
         dataBase.getStudents().sort((Comparator.comparingInt(Student::getJavaPoints).reversed()
                 .thenComparingLong(Student::getId)));
 
+        System.out.println(STUDENT_STATISTICS_HEADER);
         dataBase.getStudents().stream()
                 .filter(student -> student.getJavaPoints() > 0)
-                .forEach(student -> System.out.printf("%d     %d     %.1f%%%n", student.getId(),
+                .forEach(student -> System.out.printf(STUDENT_STATISTICS, student.getId(),
                         student.getJavaPoints(), getPercentage(student.getJavaPoints(), JAVA_MAX_POINTS)));
 
     }
 
     private void getDSAPointsForStudents() {
-        System.out.println(Msg.DSA);
-        System.out.println("id     points    completed");
+        System.out.println(DSA);
         dataBase.getStudents().sort((Comparator.comparingInt(Student::getDsaPoints).reversed()));
 
+        System.out.println(STUDENT_STATISTICS_HEADER);
         dataBase.getStudents().stream()
                 .filter(student -> student.getDsaPoints() > 0)
-                .forEach(student -> System.out.printf("%d     %d     %.1f%%%n", student.getId(),
+                .forEach(student -> System.out.printf(STUDENT_STATISTICS, student.getId(),
                         student.getDsaPoints(), getPercentage(student.getDsaPoints(), DSA_MAX_POINTS)));
 
     }
 
     private void getDatabasePointsForStudents() {
-        System.out.println(Msg.DATABASE);
-        System.out.println("id     points    completed");
+        System.out.println(DATABASE);
         dataBase.getStudents().sort((Comparator.comparingInt(Student::getDatabasePoints).reversed()));
 
+        System.out.println(STUDENT_STATISTICS_HEADER);
         dataBase.getStudents().stream()
                 .filter(student -> student.getDatabasePoints() > 0)
-                .forEach(student -> System.out.printf("%d     %d     %.1f%%%n", student.getId(),
+                .forEach(student -> System.out.printf(STUDENT_STATISTICS, student.getId(),
                         student.getDatabasePoints(), getPercentage(student.getDatabasePoints(), DATABASE_MAX_POINTS)));
 
     }
 
     private void getSpringPointsForStudents() {
-        System.out.println(Msg.SPRING);
-        System.out.println("id     points    completed");
+        System.out.println(SPRING);
         dataBase.getStudents().sort((Comparator.comparingInt(Student::getSpringPoints).reversed()));
 
+        System.out.println(STUDENT_STATISTICS_HEADER);
         dataBase.getStudents().stream()
                 .filter(student -> student.getSpringPoints() > 0)
-                .forEach(student -> System.out.printf("%d     %d     %.1f%%%n", student.getId(),
+                .forEach(student -> System.out.printf(STUDENT_STATISTICS, student.getId(),
                         student.getSpringPoints(), getPercentage(student.getSpringPoints(), SPRING_MAX_POINTS)));
 
     }
 
-
     private double getPercentage(int points, int max) {
-        return ((double) points / (double) max * 100);
+        return ((double) points / (double) max) * 100;
     }
 
     private CoursesComm getCourses(String input) {
@@ -113,7 +111,7 @@ public class StatisticService {
     }
 
     private void generalStatistics() {
-        System.out.printf(Msg.STATISTICS, getMostPopular(), getLeastPopular(), getMostActivity(),
+        System.out.printf(STATISTICS, getMostPopular(), getLeastPopular(), getMostActivity(),
                 getLeastActivity(), getEasiest(), getHardest());
     }
 
@@ -121,7 +119,7 @@ public class StatisticService {
     private String getMostPopular() {
         long max = maxEnrollment();
         if (max == 0) {
-            return "n/a";
+            return NA;
         }
         StringBuilder mostPopular = new StringBuilder();
         for (int i = 0; i < getAll().size(); i++) {
@@ -135,8 +133,9 @@ public class StatisticService {
     private String getLeastPopular() {
         long min = minEnrollment();
         long max = maxEnrollment();
+
         if (min == 0 || min == max) {
-            return "n/a";
+            return NA;
         }
         StringBuilder leastPopular = new StringBuilder();
         for (int i = 0; i < getAll().size(); i++) {
@@ -150,7 +149,7 @@ public class StatisticService {
     private String getMostActivity() {
         long max = maxActivity();
         if (max == 0) {
-            return "n/a";
+            return NA;
         }
         StringBuilder mostActivity = new StringBuilder();
         for (int i = 0; i < getAll().size(); i++) {
@@ -165,7 +164,7 @@ public class StatisticService {
         long min = minActivity();
         long max = maxActivity();
         if (min == 0 || min == max) {
-            return "n/a";
+            return NA;
         }
         StringBuilder leastActivity = new StringBuilder();
         for (int i = 0; i < getAll().size(); i++) {
@@ -179,18 +178,16 @@ public class StatisticService {
     private String getEasiest() {
         String name = easiestCourse();
         if (name == null) {
-            return "n/a";
+            return NA;
         }
-
         return name;
     }
 
     private String getHardest() {
         String name = hardestCourse();
         if (name == null) {
-            return "n/a";
+            return NA;
         }
-
         return name;
     }
 
@@ -218,10 +215,10 @@ public class StatisticService {
 
     private String easiestCourse() {
         Optional<Courses> max = getAll().stream()
-                .max(Comparator.comparing(courses ->
-                        (double) courses.getPoints() / (double) courses.getSubmissions()));
+                .max(Comparator.comparing(course ->
+                        (double) course.getPoints() / (double) course.getSubmissions()));
 
-        if (max.get().getSubmissions() == 0) {
+        if (max.isEmpty() || max.get().getSubmissions() == 0) {
             return null;
         }
 
@@ -230,10 +227,10 @@ public class StatisticService {
 
     private String hardestCourse() {
         Optional<Courses> min = getAll().stream()
-                .min(Comparator.comparing(courses ->
-                        (double) courses.getPoints() / (double) courses.getSubmissions()));
+                .min(Comparator.comparing(course ->
+                        (double) course.getPoints() / (double) course.getSubmissions()));
 
-        if (min.get().getSubmissions() == 0) {
+        if (min.isEmpty() || min.get().getSubmissions() == 0) {
             return null;
         }
 

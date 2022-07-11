@@ -1,9 +1,9 @@
-package tracker.services;
+package tracker.services.check;
 
 import tracker.entity.Student;
 import tracker.repository.DataBase;
 
-public class PointsFormatChecker {
+public class PointsFormatCheck {
 
     public String[] parsePoints(String points) {
         if (points == null || points.isEmpty()) {

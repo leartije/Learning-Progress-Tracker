@@ -15,10 +15,6 @@ public class Courses {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public long getPoints() {
         return points;
     }

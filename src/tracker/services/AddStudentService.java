@@ -2,6 +2,7 @@ package tracker.services;
 
 import tracker.entity.Student;
 import tracker.repository.DataBase;
+import tracker.services.check.StudentCredentialsCheck;
 import tracker.util.Util;
 
 import static tracker.util.Msg.*;
@@ -9,11 +10,11 @@ import static tracker.util.Msg.*;
 public class AddStudentService {
 
     private final DataBase dataBase;
-    private final StudentCredentialsChecker credentialsChecker;
+    private final StudentCredentialsCheck credentialsCheck;
 
     public AddStudentService(DataBase dataBase) {
         this.dataBase = dataBase;
-        this.credentialsChecker = new StudentCredentialsChecker();
+        this.credentialsCheck = new StudentCredentialsCheck();
     }
 
     public void addStudent() {
@@ -26,30 +27,30 @@ public class AddStudentService {
                 return;
             }
 
-            String[] parse = credentialsChecker.parser(input);
+            String[] parse = credentialsCheck.parser(input);
             if (parse.length == 0) {
                 System.out.println(INCORRECT_CREDENTIALS);
                 continue;
             }
 
-            String[] getCred = credentialsChecker.getCredentials(parse);
+            String[] getCred = credentialsCheck.getCredentials(parse);
             String name = getCred[0];
             String lastName = getCred[1];
             String email = getCred[2];
 
-            if (!credentialsChecker.isValidName(name)) {
+            if (!credentialsCheck.isValidName(name)) {
                 System.out.println(INCORRECT_FIRST_NAME);
                 continue;
             }
-            if (!credentialsChecker.isValidSurname(lastName)) {
+            if (!credentialsCheck.isValidSurname(lastName)) {
                 System.out.println(INCORRECT_LAST_NAME);
                 continue;
             }
-            if (!credentialsChecker.isValidEmail(email)) {
+            if (!credentialsCheck.isValidEmail(email)) {
                 System.out.println(INCORRECT_EMAIL);
                 continue;
             }
-            if (credentialsChecker.isEmailAlreadyTaken(dataBase, email)) {
+            if (credentialsCheck.isEmailAlreadyTaken(dataBase, email)) {
                 System.out.println(EMAIL_ALREADY_TAKEN);
                 continue;
             }
