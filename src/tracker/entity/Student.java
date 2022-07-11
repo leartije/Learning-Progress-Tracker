@@ -2,10 +2,10 @@ package tracker.entity;
 
 public class Student {
 
-    private long id;
-    private String name;
-    private String lastName;
-    private String email;
+    private final long id;
+    private final String name;
+    private final String lastName;
+    private final String email;
 
     private int javaPoints;
     private int javaSubmissions;
@@ -22,10 +22,6 @@ public class Student {
 
     private boolean isNotify = false;
 
-
-
-    public Student() {
-    }
 
     public Student(long id, String name, String lastName, String email) {
         this.id = id;

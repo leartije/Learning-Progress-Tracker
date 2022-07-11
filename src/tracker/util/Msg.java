@@ -46,4 +46,8 @@ public class Msg {
     public static final String TOTAL_STUDENTS_HAVE_BEEN_NOTIFIED = "Total %d students have been notified.%n";
     public static final String BACK = "back";
 
+    public static final String STUDENT_STATISTICS_HEADER = "id    points    completed%n";
+    public static final String STUDENT_STATISTICS = "%d    %d    %.1f%%%n";
+    public static final String NA = "n/a";
+
 }

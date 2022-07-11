@@ -2,36 +2,38 @@ package tracker.services;
 
 import tracker.entity.Student;
 import tracker.repository.DataBase;
-import tracker.util.Msg;
+import tracker.services.check.PointsFormatCheck;
 import tracker.util.Util;
+
+import static tracker.util.Msg.*;
 
 public class FindService {
 
     private final DataBase dataBase;
-    private final PointsFormatChecker checker;
+    private final PointsFormatCheck check;
 
     public FindService(DataBase dataBase) {
         this.dataBase = dataBase;
-        this.checker = new PointsFormatChecker();
+        this.check = new PointsFormatCheck();
     }
 
     public void findStudent() {
-        System.out.println(Msg.FIND_MENU);
+        System.out.println(FIND_MENU);
         while (true) {
             String input = Util.SCANNER.nextLine();
-            if (Msg.BACK.equals(input)) {
+            if (BACK.equals(input)) {
                 return;
             }
 
             long id = getId(input);
-            Student searchedStudent = checker.getStudentByID(id, dataBase);
+            Student searchedStudent = check.getStudentByID(id, dataBase);
 
             if (id == 0 || searchedStudent == null) {
-                System.out.printf(Msg.NO_STUDENT_IS_FOUND_FOR_ID, input);
+                System.out.printf(NO_STUDENT_IS_FOUND_FOR_ID, input);
                 continue;
             }
 
-            System.out.printf(Msg.POINTS, id, searchedStudent.getJavaPoints(),
+            System.out.printf(POINTS, id, searchedStudent.getJavaPoints(),
                     searchedStudent.getDsaPoints(), searchedStudent.getDatabasePoints(),
                     searchedStudent.getSpringPoints());
         }

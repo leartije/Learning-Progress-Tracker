@@ -1,10 +1,10 @@
-package tracker.services;
+package tracker.services.check;
 
 import tracker.repository.DataBase;
 
 import java.util.regex.Pattern;
 
-public class StudentCredentialsChecker {
+public class StudentCredentialsCheck {
 
     public static final Pattern NAME_REGEX = Pattern.compile("^(?i)([a-z]+('|-)?[a-z]+)+");
     public static final Pattern SURNAME_REGEX = Pattern.compile("(?i)[a-z]+([ '-][a-z]+)*");

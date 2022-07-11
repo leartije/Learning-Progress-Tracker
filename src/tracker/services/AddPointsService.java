@@ -2,6 +2,7 @@ package tracker.services;
 
 import tracker.entity.Student;
 import tracker.repository.DataBase;
+import tracker.services.check.PointsFormatCheck;
 import tracker.util.CoursesComm;
 
 import static tracker.util.Msg.*;
@@ -9,14 +10,12 @@ import static tracker.util.Util.*;
 
 public class AddPointsService {
 
-    private final int ADD_ONE_SUBMISSION = 1;
-
     private final DataBase dataBase;
-    private final PointsFormatChecker pointsFormatChecker;
+    private final PointsFormatCheck pointsFormatCheck;
 
     public AddPointsService(DataBase dataBase) {
         this.dataBase = dataBase;
-        this.pointsFormatChecker = new PointsFormatChecker();
+        this.pointsFormatCheck = new PointsFormatCheck();
     }
 
     public void addPoints() {
@@ -27,20 +26,20 @@ public class AddPointsService {
                 return;
             }
 
-            String[] points = pointsFormatChecker.parsePoints(input);
-            if (points.length == 0 || !pointsFormatChecker.isPointsFormatCorrect(points)) {
+            String[] points = pointsFormatCheck.parsePoints(input);
+            if (points.length == 0 || !pointsFormatCheck.isPointsFormatCorrect(points)) {
                 System.out.println(INCORRECT_POINT_FORMAT);
                 continue;
             }
 
-            long id = pointsFormatChecker.getId(points);
-            Student searchedStudent = pointsFormatChecker.getStudentByID(id, dataBase);
+            long id = pointsFormatCheck.getId(points);
+            Student searchedStudent = pointsFormatCheck.getStudentByID(id, dataBase);
             if (searchedStudent == null) {
                 System.out.printf(NO_STUDENT_IS_FOUND_FOR_ID, points[0]);
                 continue;
             }
 
-            int[] point = pointsFormatChecker.getPoints(points);
+            int[] point = pointsFormatCheck.getPoints(points);
             addJavaPoints(point, searchedStudent, CoursesComm.JAVA);
             addJavaPoints(point, searchedStudent, CoursesComm.DSA);
             addJavaPoints(point, searchedStudent, CoursesComm.DATABASES);
@@ -52,6 +51,7 @@ public class AddPointsService {
     }
 
     private void addJavaPoints(int[] points, Student student, CoursesComm coursesComm) {
+        int ADD_ONE_SUBMISSION = 1;
         switch (coursesComm) {
             case JAVA:
                 int javaPoints = points[0];
